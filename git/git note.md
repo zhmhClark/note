@@ -7,8 +7,8 @@
 
 2.创建版本库
    1. `git init` 初始化git仓库
-   2. `git add <file>` 添加文件到暂存区
-   3. `git add .` 全部添加到暂存区
+   2. `git add <file>` 添加文件到暂存区（若已有，替换为修改过的）
+   3. `git add .` 全部添加到暂存区(当git的文件夹有变更时，此命令可以记录所有变更)
    4. `git commit -m'message'` 提交到历史区
 
 3.版本跳转

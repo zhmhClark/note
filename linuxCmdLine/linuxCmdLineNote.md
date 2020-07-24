@@ -52,4 +52,7 @@
     1. `watch <command>` the command would be exe every 2 sec
 15. multicommand and pipe
     1. `;;` or ` && && ` to exe more command once , `command 1;;command 2`, `command 2` would exe no matter `command 1` succeed or not, `&&` as contrast.
-    2. `command 1|command 2` used as pipe. command 1 output as command 2 input 
+    2. `command 1|command 2` used as pipe. command 1 output as command 2 input
+16. Java compile
+    1. `javac Hello.java` to make a `Hello.class`
+    2. `java Hello` to exe

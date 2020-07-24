@@ -19,7 +19,7 @@
 `代码块`
 
 ```C++
-int main
+int main()
 {
     cout<<"hello world";
     return 0;
