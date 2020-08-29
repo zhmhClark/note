@@ -59,4 +59,28 @@
     1. 若`try/catch`中有`return`，在`return`前先执行`finally`
     2. 多个`catch`时，依次匹配，执行第一个可以匹配的
     3. `RuntimeException`不要求程序一定做出处理
-    
+6. File
+    1. 文件指针为`File`, `FileOutputStream`用于写,`FileInputStream`用于读
+    2. `File`常见API(见图`FileAPI.png`)
+    3. Windows环境下目录为`\\`
+    4. 示例
+        ```java
+        try {
+            File fileTest = new File("e:\\test.txt");
+            if (!fileTest.exists()) fileTest.createNewFile();
+            else System.out.println("existed");
+            
+            FileOutputStream fosTest = new FileOutputStream(fileTest);
+            String str = "This is a test.";
+            fosTest.write(str.getBytes());
+            fosTest.close();
+
+            FileInputStream fisTest = new FileInputStream(fileTest);
+            byte[] b = new byte[(int)(fileTest.length())];
+            fisTest.read(b);
+            System.out.println(new String(b));
+            fisTest.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ```
