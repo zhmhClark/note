@@ -84,3 +84,69 @@
             e.printStackTrace();
         }
         ```
+7. JDBC & DAO
+    1. 示例(windows环境 java与mysql)
+        ```java
+        package defaul;
+
+        import java.sql.*;
+
+        public class App {
+        
+        	public static void main(String[] args) {
+        		Connection conn = null;
+        		Statement stmt = null;
+        		ResultSet rt = null;
+
+        		try {
+        			Class.forName("com.mysql.cj.jdbc.Driver");
+        		} catch (Exception e) {
+        			e.printStackTrace();
+        		}
+
+        		try {
+        			String url = "jdbc:mysql://localhost:3306/mytest?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8";
+        			String username = "root";
+        			String password = "ch3ch2oh";
+        			conn = DriverManager.getConnection(url, username, password);
+        			stmt = conn.createStatement();
+        			//stmt.execute("insert into test2 values('tbbt', 67, 1134);");
+        			rt = stmt.executeQuery("select * from test2;");
+        			while (rt.next()) {
+        				System.out.println(rt.getString(1)+"\t"+rt.getInt(2)+"\t"+rt.getInt(3));
+        			}
+        		} catch (Exception e) {
+        			e.printStackTrace();
+        		} finally {
+        			try {
+        				if(conn != null) conn.close();
+        				if(stmt != null) stmt.close();
+        				if(rt != null) rt.close();
+        			} catch (Exception e) {
+        				e.printStackTrace();
+        			}
+        		}
+        	}
+        }
+
+        ```
+        关键部分
+        ```java
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        String url = "jdbc:mysql://localhost:3306/mytest?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8";
+        conn = DriverManager.getConnection(url, username, password);
+        stmt = conn.createStatement();
+        //stmt.execute("insert into test2 values('tbbt', 67, 1134);");
+        rt = stmt.executeQuery("select * from test2;");
+        while (rt.next()) {
+        	System.out.println(rt.getString(1)+"\t"+rt.getInt(2)+"\t"+rt.getInt(3));
+        }
+        ```
+    2. PreparedStatement解决注入攻击
+        例如将上方示例中第二个`try`块中的`while`上方三句换为
+        ```java
+            pstmt = conn.prepareStatement("select * from test2 where tname like ?;");
+			pstmt.setString(1, "tbbt");
+			rt = pstmt.executeQuery();
+        ```
+    3. `statement`常用方法见图`statement.png`
