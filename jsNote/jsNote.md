@@ -70,13 +70,46 @@
         - 属性可以动态创建，不必在对象声明时就指定。
         - 数值键名不能使用点运算符（因为会被当成小数点），只能使用方括号运算符。
         - 查看一个对象本身的所有属性，可以使用Object.keys方法。
-            ```js
-            var obj = {
-              key1: 1,
-              key2: 2
+          ```js
+          var obj = {
+            key1: 1,
+            key2: 2
+          };
+          
+          Object.keys(obj);
+          // ['key1', 'key2']
+          ```
+    4. 函数
+        - `var` 声明的变量，将提升至函数头部
+        - 函数执行时所在的作用域，是定义时的作用域，而不是调用时所在的作用域
+          ```js
+          var a = 1;
+          var x = function () {
+            console.log(a);
+          };
+          
+          function f() {
+            var a = 2;
+            x();
+          }
+          
+          f() // 1
+          ```
+        - 闭包使得内部变量记住上一次调用时的运算结果
+          ```js
+          function createIncrementor(start) {
+            return function () {
+              return start++;
             };
-            
-            Object.keys(obj);
-            // ['key1', 'key2']
-            ```
+          }
 
+          var inc = createIncrementor(5);
+
+          inc() // 5
+          inc() // 6
+          inc() // 7
+          ```
+    5. console API
+      - `inspect(obj)`
+      - `keys(obj)`
+      - `values(obj)`

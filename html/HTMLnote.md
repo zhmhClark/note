@@ -19,7 +19,7 @@
      ```
 - HTML **attributes**: href, src(pic), style(color, font-size, background-color), title(mouse on)
 - `<hr>` **horizonal line**
-- HTML `<head>` used for **metadata. Metadata is not displayed.
+- HTML `<head>` used for **metadata**. Metadata is not displayed.
   ```html
   <head>
     <title>My First HTML</title>
