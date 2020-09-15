@@ -7,6 +7,8 @@
     - 用冒号和缩进代替括号和大括号，没有分号
     - 暂停 `time.sleep(seconds)`
     - 清空输出 `os.system('clear')`
+    - `pip`安装采用国内镜像源方式 例：
+        `pip install -i https://pypi.tuna.tsinghua.edu.cn/simple jupyter`
 
 2. 语言元素
     - 整数进制：`0b100`(二进制的4) `0o100`(八进制的64) `0x100`(十六进制的256)
