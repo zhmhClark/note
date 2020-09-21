@@ -56,3 +56,11 @@
 16. Java compile
     1. `javac Hello.java` to make a `Hello.class`
     2. `java Hello` to exe
+17. wsl
+    1. setting:
+        1. `sudo apt install xfce4`
+        2. `sudo apt install xrdp`
+        3. `sudo sed -i ‘s/port=3389/port=3390/g’ /etc/xrdp/xrdp.ini`
+        4. `sudo echo xfce4-session >~/.xsession`
+        5. `sudo service xrdp restart` everytime open the computer, exe this
+        6. `win`+`R` input:`mstsc` `localhost:3390`
