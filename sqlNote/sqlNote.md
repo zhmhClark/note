@@ -29,3 +29,42 @@
     6. `select * from tab;` 查看当前用户的表
     7. `desc emp;` 查看表格emp的格式
     8. (限sys) `shutdown immediate` , `startup force`
+4. pl/sql
+    1. if
+        ```pl
+        if condition then
+            statements;
+        elsif condition then
+            statements;
+        else
+            statements;
+        end if;
+        ```
+    2. case
+        ```pl
+        v_temp :=
+            case v_deptno
+                when 10 then 'no.1'
+                when 10 then 'no.2'
+                else 'no.3'
+            end;
+        ```
+    3. basic loop
+        ```pl
+        loop
+            statements;
+            exit when condition;
+        end loop;
+        ```
+    4. for loop
+        ```pl
+        for var in low..high
+            statements;
+        end loop;
+        ```
+    5. while loop
+        ```pl
+        while condition loop
+            statements;
+        end loop;
+        ```
