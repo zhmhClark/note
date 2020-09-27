@@ -9,6 +9,9 @@
     - 清空输出 `os.system('clear')`
     - `pip`安装采用国内镜像源方式 例：
         `pip install -i https://pypi.tuna.tsinghua.edu.cn/simple jupyter`
+    - `pip list --outdated`检查所有待更新的包
+    - `pip install --upgrade [package]`更新一个包
+    - `pip show --files [package]`展示一个包
 
 2. 语言元素
     - 整数进制：`0b100`(二进制的4) `0o100`(八进制的64) `0x100`(十六进制的256)
@@ -32,7 +35,7 @@
 3. 分支与循环
     - `if` 不用括号、有冒号
     - `else if` 可简写为 `elif`
-    - `for-in`循环，例如`for x in range(x,0,-1)`(起点，终点（不达），步幅)
+    - `for-in`循环，例如`for x in range(x,0,-1)`(起点，终点（不达），步幅(默认为1))
     - `while`循环与其他语言相同
 
 4. 函数
@@ -192,3 +195,19 @@
         print(f.read())
         f.close()
       ```  
+14. turtle
+    - eg
+        ```py
+        import turtle
+        turtle.forward(200)
+        turtle.right(144)
+        turtle.forward(200)
+        turtle.right(144)
+        turtle.forward(200)
+        turtle.right(144)
+        turtle.forward(200)
+        turtle.right(144)
+        turtle.forward(200)
+        turtle.right(144)
+        turtle.done()
+        ```
