@@ -2,6 +2,7 @@
     1. oracle string 大小写敏感 sql server大小写不敏感
     2. oracle 查询结果空值在前 sql server空值在后
     3. '1'+'2' 在oracle中是3
+    4. 给列取别名若有空格，需加**双引号**
 1. function
     1. `round(float, int)` 保留 int(可为负数) 位float，四舍五入
     2. `length(string)` 按字符取/ `lengthb(string)` 按字节取
@@ -10,6 +11,8 @@
     5. `instr(string, str2, int1, int2)`返回从int1位开始，第int2次出现的位置在原字符串中的位置值
     6. `nvl(var, 'rep')` 若var为空，则用rep代替/ `nvl2(var, rep1, rep2)` 非空rep1, 空rep2
     7. `to_number(string)`
+    8. `concat(str1, str2)` 连接两个字符串
+    9. `||` 用来拼接字符串，可多个
 2. date
     1. 默认日期写法"dd-mon-rr" eg:"01-1月-82"
     2. 日期可以相减，不能相加
