@@ -71,3 +71,6 @@
             statements;
         end loop;
         ```
+6. string
+    1. `%` 任意长度，任意字符
+    2. `_` 任意单个字符
