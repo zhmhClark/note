@@ -32,6 +32,8 @@
     6. `select * from tab;` 查看当前用户的表
     7. `desc emp;` 查看表格emp的格式
     8. (限sys) `shutdown immediate` , `startup force`
+    9. `create user username identified by password`创建新用户
+    10. 执行sql脚本 `@file_name.sql`
 4. pl/sql
     1. if
         ```pl
@@ -71,6 +73,77 @@
             statements;
         end loop;
         ```
+    6. record
+        - 相当于结构体，需要先声明类型与此类型的变量再使用
+        - 可以`into`多行
+        - eg
+            ```sql
+            DECLARE
+            	TYPE emp_record_type IS record
+            	(ename emp.ename%TYPE,
+            	 sal emp.sal%TYPE,
+            	 job varchar2(9));
+            	emp_record emp_record_type;
+            BEGIN
+            	SELECT ename, sal, job
+            	INTO emp_record
+            	FROM EMP
+            	WHERE EMPNO = 7788;
+
+            	dbms_output.put_line('name: '||emp_record.ename||'sal: '||          emp_record.sal);
+            END;
+
+            ```
+        - 可以用%rowtype生成与某个表的列相同的record,提高效率
+            eg
+            ```sql
+            declare
+                emp_rec emp%rowtype;
+            begin
+                select * into emp_rec
+                from emp
+                where ...
+
+                insert into test values emp_rec;
+            ```
+    8. cursor
+        - 游标相当于指针，指向某个表的首行
+        - 定义游标；打开游标；提取数据
+        - 显示游标的属性
+            |属性|类型|
+            |-|-|
+            |%isopen|boolean|
+            |%notfound|boolean|
+            |%found|boolean|
+            |%rowcount|number|
+            eg
+            ```sql
+            declare
+                cursor cur is select ...;
+
+            ...
+
+            if not cur_emp%isopen then
+                open cur_emp;
+            end if;
+            loop
+                fetch cur_emp into v_ename, v_sal;
+                exit when cur_emp%notfound;
+                dbms_output.put_line(v_name||','||v_sal);
+            end loop;
+            close cur_emp;
+            ```
+        - 游标，复合与for循环
+            省略复合类型的声明，省去开启关闭游标
+            ```sql
+            for record in cursor loop
+                ...
+                record.a...
+                ...
+            end loop;
+            ```
+        - 游标可以含参，在其名称后加括号。声明参数，使用时传具体值
+
 6. string
     1. `%` 任意长度，任意字符
     2. `_` 任意单个字符
