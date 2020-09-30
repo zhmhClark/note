@@ -80,3 +80,41 @@
             startActivity();
             //intent.addcategory("...")自己添的category
             ```
+    3. 活动间传递数据
+        1. 向下一个
+            eg
+            ```java
+            //上一个活动中
+            intent.putExtra(str_key, str_val);//再调用 startActivity(intent)
+            
+            //下一个活动中
+            Intent intent = getIntent();
+            String data = intent.getStringExtra(str_key);
+            ```
+        2. 返回给上一个
+            eg
+            ```java
+            //下一个活动中
+            //可以放在重写的onBackPressed()或返回的按钮中
+            Intent intent = new Intent();
+            intent.putExtra(str_key, str_val);
+            setResult(RESULT_OK, intent);
+            finish();
+
+            //上一个活动中
+            Intent intent = ...
+            startActivityForResult(intent, 1);//第二参数是请求码，只要是唯一值即可
+            ...
+            @Override
+            protected void onActivityResult(int reqCode, int resCode, Intent Data) {
+                switch(reqCode) {
+                    case 1:
+                        if(resCode == RESULT_OK) {
+                            String retData = data.getStringExtra(str_key);
+                        }
+                    break;
+                    default:
+                }
+            }
+            ```
+         
