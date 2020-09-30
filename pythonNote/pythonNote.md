@@ -188,6 +188,7 @@
   
         `__slots__ = ('_name', '_age', '_gender')`
     - 在类中添加静态函数需在上方添加`@staticmethod` 装饰器
+    - `class B(A)` B继承A
     - 继承时，定义的括号内写基类。抽象函数需`from abc import ABCMeta, abstractmethod`
 13. 文件
     - ```python
@@ -210,4 +211,18 @@
         turtle.forward(200)
         turtle.right(144)
         turtle.done()
+        ```
+
+        ```py
+        import turtle
+        def drawTriangle(length):
+            if length < 1:
+                return
+            for i in range(3):
+                turtle.forward(length)
+                drawTriangle(length/2)
+                turtle.backward(length)
+                turtle.right(120)
+        turtle.speed(10)
+        drawTriangle(200)
         ```
