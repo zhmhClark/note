@@ -147,3 +147,7 @@
 6. string
     1. `%` 任意长度，任意字符
     2. `_` 任意单个字符
+
+7. basic grammer
+    1. `count(col_name)`忽略空值 `count(*)`不忽略
+    2. 非空 `sth is not null` 
