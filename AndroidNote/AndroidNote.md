@@ -5,6 +5,8 @@
     - `app/build.gradle`下的`defaultConfig`闭包里的`applicationId`为应用的唯一标识符
     - 在XML中定义元素 用`@+sth/sth_name`
     - 销毁活动：`finish()`
+    - 跨函数的控件应声明为活动的成员变量
+    - `res/drawable`用于存放图片
 2. toast&button
     - eg
         ```java
@@ -16,6 +18,33 @@
                         Toast.LENGTH_SHORT).show();
             }
         });
+        ```
+
+        ```java
+        //用实现接口方式注册button
+        public class SomeActivity extends AppcomatActivity implements View.onClickListener {
+            
+            ...
+            void fun() {
+                Button button1 = (Button) findViewById(R.id.button1);
+                button.setOnClickListener(this);
+            }
+            ...
+
+            @Override
+            public void onClick(View v) {
+                switch(v.getId()) {
+                    case R.id.button1:
+                    //...
+                        break;
+                    case ...
+                    ...
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
         ```
 3. menu
     1. `res`下创建`menu`文件夹，在其下新建`menu resource file`类型的文件`menu_name.xml`
@@ -117,4 +146,51 @@
                 }
             }
             ```
-         
+
+5. UIWidget
+    1. universal
+        1. `android:gravity`
+        2. `android:text`
+        3. `android:textColor`
+        4. `android:textSize`
+        5. `android:textAllCaps`
+        6. `android:visbility` (`visible|invisible|gone`)
+    2. TextView
+    3. Button
+    4. EditText
+        1. `android.hint`
+        2. `android.maxLines`
+    5. ImageView
+        1. `android:src`
+    6. ProgressBar
+        1. `style="?android:attr/progressBarStyleHorizonal"`
+
+6. EditText
+    ```java
+    //获取输入字符串
+    String inputText = editText.getText().toString(); 
+    ```
+
+7. ImageView
+    ```java
+    //显示指定字符串
+    imageView.setImageResource(R.drawable.img_2);
+    ```
+8. ProgressBar
+    ```java
+    if (progressBar.getVisibility() == View.GONE) {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+    ```
+
+9. AlertDialog
+    ```java
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.button1:
+                
+                break;       
+       }
+    }
+    ```
