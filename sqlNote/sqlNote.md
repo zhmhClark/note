@@ -7,12 +7,14 @@
     1. `round(float, int)` 保留 int(可为负数) 位float，四舍五入
     2. `length(string)` 按字符取/ `lengthb(string)` 按字节取
     3. `trim(string)` 去首尾空格/ `trim(str from string)` 去首尾的str/ `ltrim(...)`去左侧/`rtrim(...)`去右侧
-    4. `substr(string, int1, int2)`从 int1 开始，取 int2 位 (首位为1)
+    4. `substr(string, int1, int2)`从 int1 开始，取 int2 位 (首位为1),若int2空则取到结尾
     5. `instr(string, str2, int1, int2)`返回从int1位开始，第int2次出现的位置在原字符串中的位置值
     6. `nvl(var, 'rep')` 若var为空，则用rep代替/ `nvl2(var, rep1, rep2)` 非空rep1, 空rep2
     7. `to_number(string)`
     8. `concat(str1, str2)` 连接两个字符串
     9. `||` 用来拼接字符串，可多个
+    10. `upper()`大写
+    11. `LPAD(string, int, str2)`将string在前方填充str2至有int位字符
 2. date
     1. 默认日期写法"dd-mon-rr" eg:"01-1月-82"
     2. 日期可以相减，不能相加
