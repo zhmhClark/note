@@ -164,6 +164,12 @@
         1. `android:src`
     6. ProgressBar
         1. `style="?android:attr/progressBarStyleHorizonal"`
+    7. 自定义控件
+        1. `layout`目录下新建文件（例`title.xml`）
+        2. 在需要用的布局中引入
+            ```xml
+            <include layout="@layout/title"/> 
+            ```
 
 6. EditText
     ```java
@@ -189,8 +195,35 @@
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.button1:
-                
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                dialog.setTitle("This is a dialog");
+                dialog.setMessage("Something important");
+                dialog.setCancelable(false);
+                dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int whitch) {
+                    }
+                });
+                dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int whitch) {
+                    }
+                });
+                dialog.show();
                 break;       
        }
     }
     ```
+
+10. layout
+    0. uni
+        1. `android:layout_gravity` 控件在布局中的对齐方式
+    1. LinearLayout
+        1. `android:orientation` (`horizontal|vertical`)
+        2. `android:layout_weight` 控件在布局中的比重
+        3. 可以将某个控件`android:layout_weight="1"` 另外的控件`wrap_content` 则该控件占满剩余空间
+    2. RelativeLayout
+        1. `android:layout_alignParentRight|Left|Top|Bottom` 在当前布局的某个角落
+        2. `android:layout_above|below|toLeftOf|toRightOf="@id/button3"`相对于某个控件
+
+
