@@ -23,6 +23,20 @@
         - rr返回距现在较近的世纪年份 yy返回本世纪年份
     4. `add_months(date, int)` 将date加1个月
     5. `next_day(date, day)` day用汉字`星期一` 返回最近的下一个星期几
+    6. `to_char(date , format)`按指定方式输出日期
+    7. TO_DATE格式 
+        Day: 
+        dd number 12 
+        dy abbreviated fri 
+        day spelled out friday 
+        ddspth spelled out, ordinal twelfth 
+        Month: 
+        mm number 03 
+        mon abbreviated mar 
+        month spelled out march 
+        Year: 
+        yy two digits 98 
+        yyyy four digits 1998 
 3. sqlplus
     1. `sqlplus /nolog` 以不登录方式在命令行打开sqlplus
     2. `conn`
@@ -153,3 +167,4 @@
 7. basic grammer
     1. `count(col_name)`忽略空值 `count(*)`不忽略
     2. 非空 `sth is not null` 
+    3. `update table_name set col = ... where ...`
