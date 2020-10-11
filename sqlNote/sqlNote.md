@@ -126,6 +126,7 @@
         - 游标相当于指针，指向某个表的首行
         - 定义游标；打开游标；提取数据
         - 显示游标的属性
+        - 游标可带参数
             |属性|类型|
             |-|-|
             |%isopen|boolean|
@@ -159,6 +160,69 @@
             end loop;
             ```
         - 游标可以含参，在其名称后加括号。声明参数，使用时传具体值
+    9. 异常
+        - 分为预定义异常（见附图）、非预定义异常、自定义异常
+        - `sqlcode` `sqlerrm` 为异常值和异常信息，不能直接放在sql语句中
+        ```sql
+        begin
+        ...
+        exception
+        when exp1 then
+        statements;
+        ...
+        when others then
+        statements;
+        ...
+        end;
+        ```
+        
+        ```sql
+        declare
+            e_emp_cons EXCEPTION;
+            progma exception_init(e_emp_cons, -00001);
+        ``` 
+
+        ```sql
+        if SQL%ROWOUNT > 2 then
+            raise e_too_many;
+
+        when e_too_many then
+        ...
+        ```
+    10. 过程 procedure
+        ```pl
+        create procedure pcd_name(para1 in/out data_type1, para2 data_type2...)
+        is
+        ...
+        ```
+
+        eg
+        ```sql
+        CREATE OR REPLACE PROCEDURE GET_ANNUAL_INCOME
+        (p_empno IN emp.EMPNO%TYPE [default 7369],
+         p_ann_sal OUT number)
+        IS
+        	v_sal emp.sal%TYPE;
+        	v_comm emp.comm%TYPE;
+        BEGIN
+        	SELECT sal, nvl(COMM, 0)
+        	INTO v_sal, v_comm
+        	FROM EMP
+        	WHERE EMPNO = p_empno;
+        	p_ann_sal := v_sal*12 + v_comm*10 + 20000;
+        EXCEPTION
+        	WHEN no_data_found THEN
+        		p_ann_sal := 0;
+        END GET_ANNUAL_INCOME;
+
+        DECLARE
+        	v_ann_sal number(9, 2);
+        BEGIN
+        	get_annual_income(736, v_ann_sal);
+            --get_annual_income(p_empno=>v_ann_sal, p_ann_sal=>736);
+        	dbms_output.put_line(v_ann_sal);
+        END;
+        ``` 
 
 6. string
     1. `%` 任意长度，任意字符
