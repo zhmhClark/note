@@ -35,7 +35,7 @@
         mon abbreviated mar 
         month spelled out march 
         Year: 
-        yy two digits 98 
+        yy two digits 98
         yyyy four digits 1998 
 3. sqlplus
     1. `sqlplus /nolog` 以不登录方式在命令行打开sqlplus
@@ -50,6 +50,13 @@
     8. (限sys) `shutdown immediate` , `startup force`
     9. `create user username identified by password`创建新用户
     10. 执行sql脚本 `@file_name.sql`
+    11. 4. `grant connect, resource to test`授予用户权限
+    12. sqlplus黑窗运行输入输出
+        ```sql
+        SET serveroutput ON;
+        SET verify off;
+        accept input_no prompt 'Enter empno:'
+        ```
 4. pl/sql
     1. if
         ```pl
@@ -82,6 +89,14 @@
         for var in low..high
             statements;
         end loop;
+        ```
+
+        ```pl
+        BEGIN
+	    for term in (SELECT deptno FROM dept) loop
+	    dbms_output.put_line(term.deptno);
+	    END LOOP;
+        END;
         ```
     5. while loop
         ```pl
@@ -160,6 +175,19 @@
             end loop;
             ```
         - 游标可以含参，在其名称后加括号。声明参数，使用时传具体值
+        - where currrent of 用于用游标更新表
+            ```sql
+            DECLARE
+            	CURSOR cur_copy_emp IS
+            		SELECT sal, stars FROM COPY_EMP
+            		FOR UPDATE OF stars NOWAIT;
+            BEGIN
+            	FOR copy_emp_record IN cur_copy_emp LOOP
+            		UPDATE copy_emp SET stars = lpad('*', round(sal/1000), '*')
+            		WHERE CURRENT OF cur_copy_emp;
+            	END LOOP;
+            END; 
+            ```
     9. 异常
         - 分为预定义异常（见附图）、非预定义异常、自定义异常
         - `sqlcode` `sqlerrm` 为异常值和异常信息，不能直接放在sql语句中
@@ -201,6 +229,7 @@
         CREATE OR REPLACE PROCEDURE GET_ANNUAL_INCOME
         (p_empno IN emp.EMPNO%TYPE [default 7369],
          p_ann_sal OUT number)
+        authid current_user
         IS
         	v_sal emp.sal%TYPE;
         	v_comm emp.comm%TYPE;
@@ -223,6 +252,16 @@
         	dbms_output.put_line(v_ann_sal);
         END;
         ``` 
+        `scott.procedure(p1, p2);`
+    11. 函数
+        - 其调用可以写入sql（只接受in参数，sql的数据类型）
+    12. 本地动态sql
+        `execute immediate sql`
+    13. 触发器
+        ```sql
+        create [or replace] trigger sal_emp
+        before|after insert [or ...] on emp
+        `
 
 6. string
     1. `%` 任意长度，任意字符
