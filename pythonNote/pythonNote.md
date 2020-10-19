@@ -123,6 +123,10 @@
         `str[a:b]`从a到b,a<b,若b超过尾字符，则只到尾字符
         
         `str[begin::step]` 从 `begin` 所在位置开始（若空缺，根据`step`正负视为开头（0）或结尾（-1），若为负数，从结尾倒数，尾字符为（-1）），以`step` 步幅取字符，形成新串
+    - 格式字符串
+        ```py
+        "select * from stuendts where name = '%s' and age = %d" %(name, age)
+        ```
 
 8. 列表操作
    - 算元素个数`len(list)`
