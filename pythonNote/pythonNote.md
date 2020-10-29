@@ -297,3 +297,27 @@
     else
         print('welcome back, ' + username + '!')   
     ```
+
+17. 测试
+    - `unittest`断言方法
+        `assertEqual(a, b)`
+        `assertTrue(x)`
+        `assertIn(item, list)`
+        (含这些方法的否定形式)
+    - 测试单个函数和类
+      在测试模块中会运行所有继承自`unittest.TestCase`的类
+        类中运行以`test`开头的函数
+        1. 新建测试模块，引入`unittest`和要测试的函数或类
+            ```py
+            import unittest
+            from tested_py import tested_func
+            ```
+        2. 创建测试类
+            ```py
+            class SthTestCase(unittest.TestCase):
+                def test_sth(self):
+                    ...
+                    self.assertsth()
+            ```
+        3. 可在测试类中设置`setUp(self)`函数，存储统一的测试对象。测试时先执行它，再执行各种`test`函数
+        4. 最终test数以所定义的函数个数为准，每通过一个输出一个句点，错误为E，断言失败为F
