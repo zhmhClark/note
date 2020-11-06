@@ -67,4 +67,4 @@
 18. win
     `netstat -ano` show all ports and pid
     `tasklist | findstr "[pid]"` check pid
-    `askkill /f /t /im java.exe`
+    `taskkill /f /t /im java.exe`
