@@ -64,3 +64,7 @@
         4. `sudo echo xfce4-session >~/.xsession`
         5. `sudo service xrdp restart` everytime open the computer, exe this
         6. `win`+`R` input:`mstsc` `localhost:3390`
+18. win
+    `netstat -ano` show all ports and pid
+    `tasklist | findstr "[pid]"` check pid
+    `askkill /f /t /im java.exe`
