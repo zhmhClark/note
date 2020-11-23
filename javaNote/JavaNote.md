@@ -24,8 +24,11 @@
     5. String
         1. `intern()` 返回字符串在池中的常量，如果没有就在常量池中创建
         2. 赋初值为常量的字符串以及由此拼接的字符串也入常量池，一旦含有变量就不入
+        3. 转化为String: `String.valueOf(...)` `Character/Integer.toString(...)`
     6. Character
         1. `Character.isAlphabetic(c)` `Character.isDgit(c)`用于判断字符是否为字母、数字
+    7. 格式化输出
+        1. 输出保留两位的小数 `Sysout.printf("%.2f", data)` (data double)
 3. class / interface
     1. `main()`函数中的未定义变量可以是类的static变量
     2. 成员内部类可以访问外部类的所有属性与方法，访问时若有内外同名变量，需用`OuterClass.this.var`
