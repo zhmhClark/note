@@ -37,6 +37,7 @@
     1. `top` to list th processes
     2. `pidof [processes' names]` get id of the process
     3. `kill [id]` kill the process
+    4. `ps` list processes
 11. echo
     1. `var=10` to get a variable
     2. `echo $var` or `echo "the value of $var"`to print the var
