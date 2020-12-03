@@ -6,6 +6,7 @@
     4. `touch` create a new file
     5. `dpkg -s`list all softares installed
     6. `tab` to complete
+    7. `# root user  $common user`
 2. cd
     1. `cd /` change to the bottom directory
     2. `cd -` change to the dir before
@@ -69,3 +70,6 @@
     `netstat -ano` show all ports and pid
     `tasklist | findstr "[pid]"` check pid
     `taskkill /f /t /im java.exe`
+19. du, df
+    `du` size of dir or file
+    `df` using stage of disk
