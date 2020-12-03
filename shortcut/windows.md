@@ -15,3 +15,4 @@
     - + 放大
     - number 底座图标
     - shift + S 截屏
+2. `Ctrl + win + d` 新建桌面
