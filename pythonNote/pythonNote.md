@@ -12,6 +12,7 @@
     - `pip list --outdated`检查所有待更新的包
     - `pip install --upgrade [package]`更新一个包
     - `pip show --files [package]`展示一个包
+    - pip 不需要特别新的版本，否则会有很多模块装不上
 
 2. 语言元素
     - 整数进制：`0b100`(二进制的4) `0o100`(八进制的64) `0x100`(十六进制的256)
