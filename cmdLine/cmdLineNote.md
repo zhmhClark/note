@@ -46,6 +46,8 @@
 12. C compile
     1. `gcc -o hello hello.c` to make a `hello`
     2. `./hello` to exe
+    3. `gcc -lm main.c ` when using  functions in `math.h`, add `-lm`
+    4. `indent -kr -i8 main.c` unify the indent of the code
 13. script
     1. use `which bash` to find the path of bash
     2. nano a `xxxx.sh`, first line `#!path of bash`
