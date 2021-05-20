@@ -36,7 +36,7 @@ r = requests.get(url)
 
   `r.encoding`在header中没有charset时默认为ISO-8859-1
 
-###  requests异常
+###  requests 异常
 
 | 异常                      | 说明                                        |
 | :------------------------ | ------------------------------------------- |
@@ -70,7 +70,7 @@ r = requests.get(url)
 
 - 向URL POST字典会自动转化进"form"，字符串自动转化为"data"
 
-### request()
+### request() 的参数
 
 `requests.request(method, url, **kwargs)` method为七种方法，**kwargs包括
 
@@ -128,4 +128,67 @@ r = requests.get(url)
 
 - cert: 本地SSL证书路径
 
+### requests 示例
+
+- headers 与 cookie 的使用
+
+  ``````python
+  # 爬取京东商品页面
   
+  import requests
+  
+  hd = {"user-agent" : ""Mozilla/5.0 (Windows NT 10.0; Win64; x64) ...",	# 浏览器类型
+  	"cookie" : "..."}	# cookie 从浏览器工具中获取
+  r = requests.get("https://item.jd.com/100008704975.html", headers = hd)
+  print(r.request.headers)
+  print(r.status_code)
+  print(r.encoding)
+  # print(r.text[:1000])
+  
+  f = open("jd.txt", "w", encoding="utf-8")
+  f.write(r.text)
+  ``````
+
+- params使用
+
+  ``````python
+  # 爬取用Bing搜索Python得到的页面
+  
+  import requests
+  
+  kv = { 'q' : 'python'}
+  r = requests.get("https://cn.bing.com/search", params=kv)
+  print(r.status_code)
+  f = open("python_in_bing.txt", "w", encoding="utf-8")
+  f.write(r.text)
+  ``````
+
+- 图片资源获取
+
+  ``````python
+  # 爬取教务网站的图片
+  
+  import requests
+  import os
+  
+  url = "http://teach.dlut.edu.cn/images/index23.jpg"
+  root = "C://Pictures//"
+  path = root + url.split("/")[-1]
+  
+  try:
+      if not os.path.exists(root):
+          os.mkdir(root)
+      if not os.path.exists(path):
+          r = requests.get(url)
+          with open(path, 'wb') as f:	# 以二进制进行文件读写
+              f.write(r.content)	# r.content 是二进制形式的响应内容
+              f.close
+              print("saved")
+      else:
+          print("existed")
+  except:
+      print("failed")
+  ``````
+
+  
+
