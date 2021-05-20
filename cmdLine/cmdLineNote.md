@@ -1,4 +1,4 @@
-# linux command line note
+# command line note
 1. others
     1. `pwd` present workingspace directory
     2. `clear` clear the terminal
@@ -45,9 +45,38 @@
     3. `echo -e` to accept `\`
 12. C compile
     1. `gcc -o hello hello.c` to make a `hello`
+    
     2. `./hello` to exe
+    
     3. `gcc -lm main.c ` when using  functions in `math.h`, add `-lm`
+    
     4. `indent -kr -i8 main.c` unify the indent of the code
+    
+    5. gdb
+    
+       1. show the next sentence to be exe
+    
+       2. `gdb main` start to debug out file
+    
+       3. `list ` or`l` show the source code. 
+    
+          `list 10` show the source code from 10th line
+    
+          `list func_name`show the src of the function
+    
+       4. `start` and`quit`
+    
+       5. `next` exe next sentence
+    
+       6. `step` step in to the function
+    
+       7. `backtrace`or`bt` show the frames
+    
+       8. `info`or`i`: `i locals` show the local vars
+    
+       9. `frame`or`f`: choose the frame 
+    
+       10. `finish` exe till the func end
 13. script
     1. use `which bash` to find the path of bash
     2. nano a `xxxx.sh`, first line `#!path of bash`
@@ -60,6 +89,7 @@
 16. Java compile
     1. `javac Hello.java` to make a `Hello.class`
     2. `java Hello` to exe
+    3. `java -jar xxx.jar` to run jar
 17. wsl
     1. setting:
         1. `sudo apt install xfce4`

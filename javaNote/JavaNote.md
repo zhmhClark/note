@@ -79,7 +79,7 @@
             String str = "This is a test.";
             fosTest.write(str.getBytes());
             fosTest.close();
-
+        
             FileInputStream fisTest = new FileInputStream(fileTest);
             byte[] b = new byte[(int)(fileTest.length())];
             fisTest.read(b);
@@ -93,22 +93,22 @@
     1. 示例(windows环境 java与mysql)
         ```java
         package defaul;
-
+        
         import java.sql.*;
-
+        
         public class App {
         
         	public static void main(String[] args) {
         		Connection conn = null;
         		Statement stmt = null;
         		ResultSet rt = null;
-
+        
         		try {
         			Class.forName("com.mysql.cj.jdbc.Driver");
         		} catch (Exception e) {
         			e.printStackTrace();
         		}
-
+        
         		try {
         			String url = "jdbc:mysql://localhost:3306/mytest?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8";
         			String username = "root";
@@ -133,7 +133,7 @@
         		}
         	}
         }
-
+        
         ```
         关键部分
         ```java
@@ -154,4 +154,4 @@
 			pstmt.setString(1, "tbbt");
 			rt = pstmt.executeQuery();
         ```
-    3. `statement`常用方法见图`statement.png`
+    3. `statement`常用方法见图`statement.png`0
