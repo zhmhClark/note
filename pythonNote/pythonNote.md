@@ -2,7 +2,7 @@
 
 1. 基本信息
     - cmd 输入 `python` 可以当计算器使用
-    - 转到源码目录执行 `python name.py`
+    - 转到源码目录执行 `python name.py`，如有参数，在代码中为`sys.argv`(list[str])
     - \#单行注释    """多行注释"""
     - 用冒号和缩进代替括号和大括号，没有分号
     - 暂停 `time.sleep(seconds)`
@@ -21,14 +21,15 @@
     - 复数，例如 3+5j
     - print的使用:`print('%d + %d = %d' % (a, b, a + b))` `print("flag1 = ", flag1)` (多项用逗号连接) `print('*', end='')` (默认结尾换行，end可制定结尾，通常用于循环打表)
     - `/` 为浮点除法，`//` 为整数除法，`**` 为指数运算
-    - 
-        `type()` 返回变量类型
+    - `type()` 返回变量类型
         `int()` 将字符串、数值返回整数
         `chr()` 将整数返回字符
         `ord()` 将字符返回整数      
         `float()` 将字符串返回浮点数
         `str()` 转换为字符串
-
+    - `is`判断是否为同一个对象，`==`判断值是否相等
+    - 模块（module），类（class）和函数（def、lambda）才会引入新的作用域，if/elif/else/、try/except、for/while 等语句则不会引入新的作用域，即外部可以访问在这些语句内定义的变量
+    
 3. 分支与循环
     - `if` 不用括号、有冒号 `"" [] {} () None`都会判断为False
     - `else if` 可简写为 `elif`
@@ -43,7 +44,7 @@
              函数体
              """
              return
-         ```  
+        ```
     - 可以使用默认形参，也可以不安顺序给参数赋值
     - 可以使用可变数量参数，效果为传入了一个元组，例如
         ```python
@@ -90,7 +91,7 @@
         @sth
         fun()
         # fun = sth(fun)
-        ``` 
+        ```
 5. 模块
     - 一个py文件即为一个模块，模块可单独执行，也可以在别的模块中引入执行
     - 引入别的模块：
@@ -110,7 +111,7 @@
 
         def bar():
         pass
-
+    
         #pass 是函数空白时的占位符 
         # __name__是Python中一个隐含的变量它代表了模块的名字
         # 只有被Python解释器直接执行的模块的名字才是__main__
@@ -151,6 +152,7 @@
     - 添加元素到末尾：`list.append(elem)` `list += [elem1,elem2]`
     - 插入元素：`list.insert(index,elem)`
     - 删除元素：`list.remove(elem)`(只删第一个匹配到的) `del list[index]`
+    - 根据元素找下标：`list.index(elem)`
     - `pop()` 将列表当作栈，末尾为栈顶 `val = lst.pop()`
     - 清空：`list.clear()`
     - 倒叙：`list.reverse()`
@@ -202,22 +204,22 @@
     - `@property` python内置装饰器，加在成员变量的getter类函数前，可使程序读取成员变量时自动运行该函数。同时将`@v.setter` 加到对应成员v的setter类函数前，可使程序改动成员变量时自动运行该函数。若不加 `@v.setter` 则会使该变量成为只读变量，例：
         ```python
         class Student(object):
-    
+        
             @property
             def birth(self):
                 return self._birth
-
+        
             @birth.setter
             def birth(self, value):
                 self._birth = value
-
+        
             @property
             def age(self):
                 return 2015 - self._birth
         ```
-     其中的`age` 就是只读变量，因为它只取决于生日和当前年份
+         其中的`age` 就是只读变量，因为它只取决于生日和当前年份
     - python 是一门动态语言，可以在程序运行中绑定新属性。而`__slots__` 可以限制绑定内容。例：
-  
+    
         `__slots__ = ('_name', '_age', '_gender')`
     - 在类中添加静态函数需在上方添加`@staticmethod` 装饰器
     - `class B(A)` B继承A
@@ -285,9 +287,9 @@
 16. json
     ```py
     import json
-
+    
     filename = 'username.json'
-
+    
     try:
         with open(filename) as fn:
         username = json.load(fn)
