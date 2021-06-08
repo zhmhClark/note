@@ -190,5 +190,66 @@ r = requests.get(url)
       print("failed")
   ``````
 
+
+
+## BeautifulSoup
+
+一个BeautifulSoup对象对应于一个html/xml文件
+
+BeautifulSoup对象的生成：
+
+``````python
+demo = requests.get("http://python123.io/ws/demo.html").text
+soup = BeautifulSoup(demo, 'html.parser')	# demo可换为任何合适的标签树
+print(soup.prettify())
+# <html>
+#  <head>
+#   <title>
+#    This is a python demo page
+#   </title>
+#  </head>
+#  <body>
+#   <p class="title">
+#    <b>
+#     The demo python introduces several python courses.
+#    </b>
+#   </p>
+#   <p class="course">
+#    Python is a wonderful general-purpose programming language. You can learn Python from novice to professional by tracking the following courses:
+#    <a class="py1" href="http://www.icourse163.org/course/BIT-268001" id="link1">
+#     Basic Python
+#    </a>
+#    and
+#    <a class="py2" href="http://www.icourse163.org/course/BIT-1001870001" id="link2">
+#     Advanced Python
+#    </a>
+#    .
+#   </p>
+#  </body>
+# </html>
+``````
+
+
+
+### 基本元素
+
+| 基本元素        | 说明                                                         |
+| :-------------- | ------------------------------------------------------------ |
+| Tag             | 标签，以\<>和\</>表示开头和结尾                              |
+| Name            | 标签名，\<p>...\</p>的名字是'p'，格式：`<tag>.name`          |
+| Attributes      | 标签的属性，字典类型，格式`<tag>.attrs`                      |
+| NavigableString | 标签内的非属性字符串，\<>...\</>中的字符串，格式`<tag>.string` |
+| Comment         | 标签内的字符串注释部分                                       |
+
+- 元素使用示例
+
+  ``````python
+  tag = soup.a		# 指定soup的某个tag, 同名取第一个，类型为bs4.element.Tag
+  print(tag.name)		# 'a'
+  print(tag.attrs)	# {'href': 'http://www.icourse163.org/course/BIT-268001', 'class': ['py1'], 'id': 'link1'} 返回字典，除字符串意外的键值对
+  print(tag.string)	# 'Basic Python' 类型为bs4.element.NavigableString，bs4库中特有的类
+  tag.parent			# p a的上一级tag
+  ``````
+
   
 

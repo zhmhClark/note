@@ -1,5 +1,10 @@
 # git 常用命令
+0.其他
+
+1. 设置代理，取消代理`git config --global --unset https.proxy`
+
 1.查看 
+
    1. `git log` 查看提交
    2. `git log --pretty=oneline` 改变查看格式
    3. `git reflog` 查看所有改动
@@ -14,16 +19,16 @@
 3.版本跳转
    1. `git log` 获取版本号
    2. `git reset --hard <commitId>` 跳转到对应版本
-   
+
 4.撤销修改
    1. `git checkout --<file>` 撤销工作区修改（用版本库替换工作区）
    2. 暂存区修改撤销需要版本回退
-   
+
 5.远程仓库
    1. `git remote add <origin> <http...>` 关联远程仓库
    2. `git push <origin> <master>` 推送到远程仓库（第一次加 -u）
    3. `git clone <http...>` 克隆仓库
-   
+
 6.分支管理  
    1. `git branch` 查看分支
    2. `git branch <dev>` 创建分支
