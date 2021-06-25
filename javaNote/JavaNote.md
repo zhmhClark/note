@@ -2,6 +2,7 @@
 1. 其他
     1. jdk目录：`bin`可执行；`lib`Java类库文件；`include`本地方法
     2. Java编译流程(见图`javaCompile.png`)
+    
 2. basic grammer
     1. `int a[][] = new int[3][]`二维数组必须声明行数<br>`int a[][]  = new int[][]{{1,2,3},{4},{5,6}}`
     2. mod 取模正负问题：结果数值同双正 符号取决于被取模数（%前数字）
@@ -29,42 +30,97 @@
         1. `Character.isAlphabetic(c)` `Character.isDgit(c)`用于判断字符是否为字母、数字
     7. 格式化输出
         1. 输出保留两位的小数 `Sysout.printf("%.2f", data)` (data double)
+    
 3. class / interface
     1. `main()`函数中的未定义变量可以是类的static变量
+    
     2. 成员内部类可以访问外部类的所有属性与方法，访问时若有内外同名变量，需用`OuterClass.this.var`
+    
     3. 静态内部类 外类.内类 ~ = new 外类.内类();
-       成员内部类 外类.内类 ~ = 外类.new 内类();
+       成员内部类 外类.内类 ~ = new 外类.new 内类();
+       
     4. 构造函数中，`this(...)`或`super(...)`写在第一句
+    
     5. 当基类没有默认的无参构造函数时，派生类构造函数第一句`super()`会出错
+    
     6. `A instanceof B`判断A是否为B的派生类
+    
     7. 多接口写法:`class A implements I1, I2, I3`
+    
     8. 未实现全部接口写法的为抽象类，需声明为抽象类
+    
     9. 接口中的函数会隐式声明为`public abstract`，变量会隐式声明为`public static final`
+    
     10. 接口可以多继承接口
+    
     11. 抽象类可以无抽象函数，有抽象函数必声明为抽象类
+    
     12. 静态函数不会被重写，会被覆盖
+    
     13. 函数不可能同为`static`与`abstract`
+    
     14. 重写与重载（见图`overwrite&overload.png`）
-4. API
+    
+    15. 函数可变参数(本质是一个数组，默认要放到最后一个参数)
+    
+        ``````java
+        int sum(int... a) {
+            int sum = 0;
+            for(int i : a) sum += i;
+        	return sum;
+        }
+        ``````
+    
+        
+    
+4. 泛型
+
+    - 泛型方法
+
+      ``````java
+      public <T> void show(T t) {}
+      ``````
+
+    - 泛型类、泛型接口
+
+      ``````java
+      public interface Generic<T> {}
+      ``````
+
+      
+
+5. API
     1. Date
         - Java封装有`Date`与`SimpleDateFormat`接口
             ```java
             Date dNow = new Date( );
             SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             ```
+        
     2. Random
         - Java.util.Random 在种子一样时生成的数一样
+        
     3. Arrays
         - Java.util.Arrays 的各种函数（见图`Arrays.png`）
+        
     4. Object
         - Object常被重写的函数（见图`ObjectOverwrite.png`）
+        
     5. Collection and Map
         - 常见的集合容器类（见图`Collection&Map.png`, `Collection&Map.png`, `ListAPI.png`, `Linkedlinst.png`, `MapAPI.png`）
-5. Exception
+        - shuffle()可以打乱顺序
+        
+    6. System
+
+        - exit(int status) 终止程序，status非零表示异常
+        - currentTimeMillis() 放回当前时间(毫秒)
+
+6. Exception
     1. 若`try/catch`中有`return`，在`return`前先执行`finally`
     2. 多个`catch`时，依次匹配，执行第一个可以匹配的
     3. `RuntimeException`不要求程序一定做出处理
-6. File
+
+7. File
     1. 文件指针为`File`, `FileOutputStream`用于写,`FileInputStream`用于读
     2. `File`常见API(见图`FileAPI.png`)
     3. Windows环境下目录为`\\`
@@ -89,7 +145,8 @@
             e.printStackTrace();
         }
         ```
-7. JDBC & DAO
+
+8. JDBC & DAO
     1. 示例(windows环境 java与mysql)
         ```java
         package defaul;
@@ -151,7 +208,7 @@
         例如将上方示例中第二个`try`块中的`while`上方三句换为
         ```java
             pstmt = conn.prepareStatement("select * from test2 where tname like ?;");
-			pstmt.setString(1, "tbbt");
-			rt = pstmt.executeQuery();
+    		pstmt.setString(1, "tbbt");
+    		rt = pstmt.executeQuery();
         ```
     3. `statement`常用方法见图`statement.png`0

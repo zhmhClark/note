@@ -246,10 +246,16 @@ print(soup.prettify())
   ``````python
   tag = soup.a		# 指定soup的某个tag, 同名取第一个，类型为bs4.element.Tag
   print(tag.name)		# 'a'
-  print(tag.attrs)	# {'href': 'http://www.icourse163.org/course/BIT-268001', 'class': ['py1'], 'id': 'link1'} 返回字典，除字符串意外的键值对
+  print(tag.attrs)	# {'href': 'http://www.icourse163.org/course/BIT-268001', 'class': ['py1'], 'id': 'link1'} 返回字典，除字符串以外的键值对
   print(tag.string)	# 'Basic Python' 类型为bs4.element.NavigableString，bs4库中特有的类
   tag.parent			# p a的上一级tag
   ``````
 
-  
+
+
+### 元素遍历
+
+
+
+
 
