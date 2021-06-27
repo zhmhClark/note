@@ -273,9 +273,23 @@
 
 11. 线程与进程
     - 线程或继承Thread，或实现Runnable，实现Runnable后可以通过`Thread t = new Thread(/*Runnable*/ r)`的方式执行
+    
     - `start()`启动线程，使线程并发执行
+    
     - `getName()`获取线程名称
+    
     - `getPriority()`获取线程优先级，`setPriority()`设置线程优先级
+    
     - `currentThread()`获取当前执行的线程
+    
     - `join()`其余线程必须等该线程结束才能执行
+    
     - `setDaemon(true)`当线程作为守护线程时，若所有线程都为守护线程，退出程序
+    
+    - synchronized
+    
+      用于给代码语句上锁，被锁住的语句在执行时不会被其他进程占用
+    
+      可以修饰函数，此时默认锁住的对象是所在对象本身
+      
+      如有静态函数、锁住的是类(getClass())
