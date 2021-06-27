@@ -26,6 +26,8 @@
         1. `intern()` 返回字符串在池中的常量，如果没有就在常量池中创建
         2. 赋初值为常量的字符串以及由此拼接的字符串也入常量池，一旦含有变量就不入
         3. 转化为String: `String.valueOf(...)` `Character/Integer.toString(...)`
+        4. `getBytes()`可以指定字符串编码格式 ，返回相应编码的字节数组，如s.getBytes("UTF-8")
+        5. `String(byte[] bytes, String charsetName)`可以指定解码形式，用相应字节数组构造字符串
     6. Character
         1. `Character.isAlphabetic(c)` `Character.isDgit(c)`用于判断字符是否为字母、数字
     7. 格式化输出
@@ -122,9 +124,14 @@
 
 7. File
     1. 文件指针为`File`, `FileOutputStream`用于写,`FileInputStream`用于读
+    
     2. `File`常见API(见图`FileAPI.png`)
+    
     3. Windows环境下目录为`\\`
-    4. 示例
+    
+    4. 字节缓冲流可以提升读写速度
+    
+    5. 示例
         ```java
         try {
             File fileTest = new File("e:\\test.txt");
@@ -144,8 +151,17 @@
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+        FileInputStream fis = new FileInputStream("path0");
+        FileOutputStream fos = new FileOutputStream("path1");
+                
+        byte[] bys = new byte[1024];
+        int len;
+        while ((len = fis.read(bys)) != -1) {
+            fos.write(bys, 0, len);
+        }
         ```
-
+    
 8. JDBC & DAO
     1. 示例(windows环境 java与mysql)
         ```java
@@ -212,3 +228,54 @@
     		rt = pstmt.executeQuery();
         ```
     3. `statement`常用方法见图`statement.png`0
+
+
+
+9. Serializable
+
+   - 空接口，实现该接口的类的对象可以序列化，写入文件持久保存
+
+     eg
+
+     ``````java
+     ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("path"));
+     Student s = new Student("Tom", 30);
+     oos.writeObject(s);
+     ObjectInputStream ois = new ObjectInputStream(new FileInputStream("path"));
+     Object obj = ois.readObject();
+     Student s = (Student) obj;
+     System.out.println(s.getName());
+     ``````
+
+   - 如果序列化之后，类文件修改，反序列化可能会异常。类的SerialVersionID在实现Serializable接口时生成，序列化时会在文件中保存。修改类文件会改变ID，反序列化时ID不同会异常
+   
+   - 一般情况下，应在类中自定义serialVersionID，`private static final long serialVersionUID = 314159L`
+   
+   - 不参与序列化的变量用`transient`修饰
+   
+10. Properties
+
+    - 本质上是一个HashTable，可以用来将数据存入文件持久化保存
+
+      ``````java
+      Properties prop = new Properties();
+      prop.setProperty("username", "Tom");
+      prop.setProperty("password", "123456");
+      prop.store(new FileOutputStream("file.properties"), "comment");
+      prop.storeToXML(new FileOutputStream("file.xml"), "comment");
+      Properties p2 = new Properties();
+      p2.load(new FileInputStream("file.properties"));
+      System.out.println(p2.get("username"));
+      Properties p3 = new Properties();
+      p3.loadFromXML(new FileInputStream("file.xml"));
+      System.out.println(p3.get("password"));
+      ``````
+
+11. 线程与进程
+    - 线程或继承Thread，或实现Runnable，实现Runnable后可以通过`Thread t = new Thread(/*Runnable*/ r)`的方式执行
+    - `start()`启动线程，使线程并发执行
+    - `getName()`获取线程名称
+    - `getPriority()`获取线程优先级，`setPriority()`设置线程优先级
+    - `currentThread()`获取当前执行的线程
+    - `join()`其余线程必须等该线程结束才能执行
+    - `setDaemon(true)`当线程作为守护线程时，若所有线程都为守护线程，退出程序
