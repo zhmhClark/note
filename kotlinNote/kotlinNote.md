@@ -31,11 +31,19 @@
    }
    
    when {
-   	name.startWith("Tom") == "Tom" -> 86
+   	name.startWith("Tom") -> 86
        name == "Jim" -> 77
        name == "Jack" -> 95
        name == "Lily" -> 100
        else -> 0
+   }
+   
+   fun checkNumber(num: NUmber) {
+       when (num) {
+           is Float -> println("number is a Float")
+           is Double -> println("number is a Double")
+           else -> println("number not support")
+       }
    }
    ``````
 
@@ -65,6 +73,13 @@
       `setOf(), mutableSetOf()`
 
       `mapOf("Apple" to 1, "Banana" to 2)`
+      
+   2. `for ((fruit, number) in map)` 循环遍历时同时传入键和值 
 
-9. 类型后面加问号表示相应位置可以为空
+9. 类型后面加问号表示相应位置可以为空，否则默认不为空
+
+    1. `?.`表示在不为空的情况下调用：`a.?doSomething()`
+    2. `?:`表示在为空的情况下用冒号后面的内容代替
+
+10. `"$message"， “${obj.name}”`表示在字符串里的变量
 

@@ -127,9 +127,43 @@
       }
       ``````
 
-      
+8. Block
 
-8. 其他
+   作为一种变量类型
+
+   形式：`void (^BlockName) (int num1, float num2)`;
+
+   ``````objective-c
+   void (^BlockName) (int num1, float num2);
+   BlockName = void^()
+   ``````
+
+   - Block中可以访问外部的局部变量和全局变量，但不能修改局部变量，可以修改全局变量。如果想要它可以修改，需要将对应变量设为`__block`，如`__block int sum;`
+
+9. 协议
+
+   ``````objective-c
+   @protocol someDelegate <NSObject>
+   
+   -(void) someFunction:(int)num;
+   
+   @end
+   
+   //another file
+   @interface Dog <someDelegate>
+   ``````
+
+   - 协议可以多遵守， `Dog <someDelegate1, someDelegate2, someDelegate3>`
+
+   - 协议中只能写各种方法声明，方法名前如果用`@required`,则不实现会警告 `@optional`不实现无警告。但都没有报错。默认是`@required`。调用只有声明的方法会报错。
+
+   - 协议可以遵守其他协议，创造协议时声明用`<>`
+
+   - `NSObject<someDelegate> *p = sth;` p指针指向的对象遵守指定协议
+
+     `Student<someDelegate> *stu = sth;` stu指针指向遵守指定协议的对象
+
+10. 其他
 
    - `unrecongnized selector sent to instance ...` 对象中没有对应方法的实现 
 
@@ -161,53 +195,63 @@
 
    - ARC与Java GC的区别：GC是在运行时扫描，ARC在编译时让引用计数为0的地方。
 
-9. 规范
+   - OC测试
 
-   1. 返回BOOL的getter命名用is/can/should开头，但属性名不包含is/can/should
+     ``````objective-c
+     id mockMaxViewModel = OCMPartialMock([[QNBUAUserInfoTopPicViewModel alloc] init]);
+     OCMStub([mockMaxViewModel currentSizeClass]).andReturn(VBUISizeClassMax);
+     XCTAssertEqual([mockMaxViewModel avatarSize], 80.0);
+     ``````
 
-      ``````objective-c
-      @property (nonatomic, getter=isGlorious) BOOL glorious;
-      - (BOOL)isGlorious;
-      
-      BOOL isGood = object.glorious;
-      BOOL isGood = [object isGlorious];
-      ``````
+     
 
-   2. 返回对象的方法可以用名词开头标识返回对象
+11. 规范
 
-      ``````objective-c
-      - (Sandwich *)sandwich;
-      ``````
-
-   3. getter不应加`get`，直接对应同名属性，小写，没下划线
-   4. 多参数方法每个参数前都要有函数体
-
-   5. 全局变量前面用`g`
-
-   6. @interface前要加注释
-
-   7. 函数调用时若参数太多需要换行，以冒号对齐。冒号前后不空格。
-
-   8. 使用`nullable`和`nonnull`修饰属性，或者`_Nullable` `_Nonnull`用于其他
-
-      `````objective-c
-      @property (readonly, copy, nonnull) NSString *author;
-      @property (readonly, copy, nullable) NSString *author;
-      `````
-
-   9. 获取属性优先选择点语法，不要调用函数
-
-   10. 初始化常用数据结构时，采用字面量，大括号里不用空格
-
-   11. if-else不超过4层，最快路径在最前面
-
-   12. 用三目运算符将常规整数转化为`Yes` `NO`
+    1. 返回BOOL的getter命名用is/can/should开头，但属性名不包含is/can/should
 
        ``````objective-c
-       - (Bool)isBold {
-           return ([self fontTraits] & NSFontBoldTrait) ? YES : NO;
-       }
+       @property (nonatomic, getter=isGlorious) BOOL glorious;
+       - (BOOL)isGlorious;
+       
+       BOOL isGood = object.glorious;
+       BOOL isGood = [object isGlorious];
        ``````
 
-   13. 访问`CGRect`的`x`, `y`, `width`, `height`时，
+    2. 返回对象的方法可以用名词开头标识返回对象
+
+       ``````objective-c
+       - (Sandwich *)sandwich;
+       ``````
+
+    3. getter不应加`get`，直接对应同名属性，小写，没下划线
+    4. 多参数方法每个参数前都要有函数体
+
+    5. 全局变量前面用`g`
+
+    6. @interface前要加注释
+
+    7. 函数调用时若参数太多需要换行，以冒号对齐。冒号前后不空格。
+
+    8. 使用`nullable`和`nonnull`修饰属性，或者`_Nullable` `_Nonnull`用于其他
+
+       `````objective-c
+       @property (readonly, copy, nonnull) NSString *author;
+       @property (readonly, copy, nullable) NSString *author;
+       `````
+
+    9. 获取属性优先选择点语法，不要调用函数
+
+    10. 初始化常用数据结构时，采用字面量，大括号里不用空格
+
+    11. if-else不超过4层，最快路径在最前面
+
+    12. 用三目运算符将常规整数转化为`Yes` `NO`
+
+        ``````objective-c
+        - (Bool)isBold {
+            return ([self fontTraits] & NSFontBoldTrait) ? YES : NO;
+        }
+        ``````
+
+    13. 访问`CGRect`的`x`, `y`, `width`, `height`时，
 
