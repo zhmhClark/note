@@ -298,12 +298,123 @@
     
     - `yield()`释放当前线程
     
+    - 创建多线程的方式
+    
+      - 继承Thread
+      - 使用Runnable
+      - 匿名内部类
+      - lambda
+      - Callable Feature
+      - 线程池
+    
 12. 四种引用
 
     1. 强引用，正常的引用
     2. 软引用
        1. 在内存足够的情况下，不受gc影响
-
     3. 弱引用
        1. gc到来时回收
     4. 虚引用
+    
+13. 反射
+
+    ``````java
+    package pkg;
+    
+    import java.lang.reflect.Constructor;
+    import java.lang.reflect.Field;
+    import java.lang.reflect.Method;
+    
+    public class App {
+    
+        public int param0;
+        String param1;
+    
+        public App() {
+    
+        }
+    
+        public App(int p0, String p1) {
+            this.param0 = p0;
+            this.param1 = p1;
+        }
+    
+        private App(int p0) {
+            this.param0 = p0;
+            this.param1 = "this is a private constructor.";
+        }
+    
+        @Override
+        public String toString() {
+            return param0 + " " + param1;
+        }
+    
+        public String appPrint(int a, int b) {
+            System.out.println(a+b);
+            return a + " " + b;
+        }
+    
+        public static void main(String[] args) throws Exception {
+        
+            //SomeClass.class
+            Class<App> cls = App.class;
+            System.out.println(cls);
+    
+            //Class.forName("path")
+            Class<?> cls2 = Class.forName("pkg.App");
+            System.out.println(cls2);
+    
+            //Object.getClass()
+            Class<? extends App> cls3 = new App().getClass();
+            System.out.println(cls3);
+    
+            //getConstructors()获取公共的构造方法，getDeclaredConstructors()获取所有的构造方法
+            Constructor<?>[] cons = cls.getConstructors();
+            
+            //获取单个构造方法
+            Constructor<?> con = cls.getConstructor();
+            Object obj1 = con.newInstance();
+            System.out.println(obj1);
+            
+            //基础类型也有.class
+            Constructor<?> con1 = cls.getConstructor(int.class, String.class);
+            Object obj2 = con1.newInstance(1, "this is a string");
+            System.out.println(obj2);
+    
+            //暴力反射，可以获取私有构造方法
+            Constructor<?> con2 = cls.getDeclaredConstructor(int.class);
+            con2.setAccessible(true);
+            Object obj3 = con2.newInstance(10);
+            System.out.println(obj3);
+    
+            //获取public字段
+            Field[] fields = cls.getFields();
+            
+            //获取所有字段
+            fields = cls.getDeclaredFields();
+            for (Field field : fields) {
+                System.out.println(field);
+            }
+            //根据名称获取字段
+            Field iField = cls.getField("param0");
+            //用字段类给对象的字段赋值
+            iField.set(obj3, 50);
+            System.out.println(obj3);
+            System.out.println(iField.get(obj3));
+    
+            //获取方法并调用
+            Method method = cls.getMethod("appPrint", int.class, int.class);
+            String res = (String) method.invoke(obj3, 15, 20);
+            System.out.println(res);
+    
+            /**
+             * 反射典型使用场景：
+             * 将要实例化的类名和方法放在配置文件中，需要时读取，通过反射实现调用
+             * 当程序执行需要变动时，仅需修改配置文件
+             */
+            
+        }
+    }
+    ``````
+
+    
