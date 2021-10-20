@@ -417,4 +417,127 @@
     }
     ``````
 
+14. lambda表达式使用前提：
+
+    - 接口中有且仅有一个方法 
+
+    ``````java
+    printData((String s) -> {
+      System.out.println(s);
+    });
+    ``````
+
+    - 参数类型可以省略（全部省略）
+
+    ``````java
+    printData((s) -> {
+      System.out.println(s);
+    });
+    ``````
+
     
+
+    - 如果参数有仅有一个，小括号可以省略
+
+    ``````java
+    printData(s -> {
+      System.out.println(s);
+    });
+    ``````
+
+    - 如果只有一行语句，可省略大括号和分号(以及return)
+
+    ``````java
+    printData(s -> System.out.println(s)); 
+    ``````
+
+    - Lambda表达式可以用于匿名接口变量初始化
+
+    ``````java
+    Runnable r = () -> System.out.println("lambda");
+    ``````
+
+    
+
+    - 方法引用符
+
+      lambda表达式的进一步简化
+
+    ``````java
+    usePrintable(s -> System.out.println(s));
+    usePrintable(System.out::println);
+	
+	Integer::ParseInt; //参数是String
+	
+	//方法为实例方法时，需要调用者。
+	//第一个参数作为方法引用中的方法的调用者，后面的是方法的参数
+	//构造方法除外
+	useMySubString((s, x, y) -> s.subString(x, y));
+	useMySubString(String::subString);
+
+15. 死锁示例
+
+    ``````java
+    public class App {
+    
+        static class DeadLockTask implements Runnable {
+    
+            private boolean flag;
+            private Object lock1;
+            private Object lock2;
+    
+            public DeadLockTask(boolean flag, Object lock1, Object lock2) {
+                this.flag = flag;
+                this.lock1 = lock1;
+                this.lock2 = lock2;
+            }
+            
+            @Override
+            public void run() {
+                if (flag) {
+                    synchronized (lock1) {
+                        System.out.println(Thread.currentThread().getName() + " got lock1");
+                        try {
+                            Thread.sleep(1000);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+    
+                        System.out.println(Thread.currentThread().getName() + " is waiting for lock2");
+                        synchronized (lock2) {
+                            System.out.println(Thread.currentThread().getName() + "got lock2");
+                        }
+                    }
+                } else {
+                    synchronized (lock2) {
+                        System.out.println(Thread.currentThread().getName() + " got lock2");
+                        try {
+                            Thread.sleep(1000);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+    
+                        System.out.println(Thread.currentThread().getName() + " is waiting for lock1");
+                        synchronized (lock1) {
+                            System.out.println(Thread.currentThread().getName() + "got lock1");
+                        }
+                    }
+                }            
+            }
+    
+            
+        }
+        public static void main(String[] args) throws Exception {
+            Object lock1 = new Object();
+            Object lock2 = new Object();
+            new Thread(new DeadLockTask(true, lock1, lock2), "Thread 01").start();
+            new Thread(new DeadLockTask(false, lock1, lock2), "Thread 02").start();
+        }
+    }
+    
+    ``````
+
+    
+
+
+
