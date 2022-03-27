@@ -10,16 +10,19 @@
    6. `tab` to complete
    7. `# root user  $common user`
    8. `Ctrl + D`  exit CLI
+   9. `apt list --upgradable` list upgradable things
 2. cd
 
    1. `cd /` change to the bottom directory
    2. `cd -` change to the dir before
+   3. `cd ~` change to HOME
 3. ls
 
    1. `ls -l` list the details
-   2. `ls ../..` to the upper of the uppper
-   3. `ls ./*.html` list all the html docs of the presentdir
-   4. colors represents : green exe; blue contents;red zip;
+   2. `ls -a` list all the files, including hidden files
+   3. `ls ../..` to the upper of the uppper
+   4. `ls ./*.html` list all the html docs of the presentdir
+   5. colors represents : green exe; blue contents;red zip;
 4. cat
 
    1. `cat list.txt` print the list.txt
