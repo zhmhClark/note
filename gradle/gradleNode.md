@@ -76,3 +76,58 @@ apply {
 
 #### buildSrc
 
+	1. mkdir buildSrc
+
+	2. 填充 build.gradle 大致模版为
+
+    ```groovy
+    apply plugin: 'java-gradle-plugin' // Allows us to create and configure custom plugins
+    apply plugin: 'kotlin' //Needed as we'll write our plugin in Kotlin
+    
+    buildscript {
+      ext.kotlin_version = '1.3.71'
+      ext.gradle_version = '3.5.3'
+      repositories {
+         google()
+         jcenter()
+      }
+      dependencies {
+         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+         classpath "com.android.tools.build:gradle:$gradle_version"
+      }
+    }
+    
+    repositories {
+      google()
+      jcenter()
+    }
+    
+    dependencies {
+      implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+     
+      // Android gradle plugin will allow us to access Android specific features
+      implementation "com.android.tools.build:gradle:$gradle_version"
+    }
+    ```
+
+    
+
+	3. sync
+
+	4. 生成文件后，按照提示生成源码文件
+
+	5. 注册插件
+
+    ```groovy
+    gradlePlugin {
+      plugins {
+         create("MyFirstPlugin") {
+            id = "MyFirstPlugin"
+            implementationClass = "MyFirstPlugin"
+         }
+      }
+    }
+    ```
+
+	6. 在 app/build.gradle 下 `apply plugin: "DemoPlugin"`
+
