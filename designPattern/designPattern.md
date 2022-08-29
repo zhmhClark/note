@@ -12,7 +12,7 @@
                 }
             }
         }
-
+        
         public class User {
             private void eat(){
                 FruitFactory fruitFactory = new     FruitFactory();
@@ -63,71 +63,71 @@
         private final String size;
         private final boolean pearl;
         private final boolean ice;
-
+    
         private MilkTea(Builder builder) {
             this.type = builder.type;
             this.size = builder.size;
             this.pearl = builder.pearl;
             this.ice = builder.ice;
         }
-
+    
         public String getType() {
             return type;
         }
-
+    
         public String getSize() {
             return size;
         }
-
+    
         public boolean isPearl() {
             return pearl;
         }
         public boolean isIce() {
             return ice;
         }
-
+    
         public static class Builder {
-
+    
             private final String type;
             private String size = "中杯";
             private boolean pearl = true;
             private boolean ice = false;
-
+    
             public Builder(String type) {
                 this.type = type;
             }
-
+    
             public Builder size(String size) {
                 this.size = size;
                 return this;
             }
-
+    
             public Builder pearl(boolean pearl) {
                 this.pearl = pearl;
                 return this;
             }
-
+    
             public Builder ice(boolean cold) {
                 this.ice = cold;
                 return this;
             }
-
+    
             public MilkTea build() {
                 return new MilkTea(this);
             }
         }
     }
-
+    
     public class User {
         private void buyMilkTea() {
             MilkTea milkTea = new MilkTea.Builder("原味").build();
             show(milkTea);
-
+    
             MilkTea chocolate =new MilkTea.Builder("巧克力味")
                     .ice(false)
                     .build();
             show(chocolate);
-
+    
             MilkTea strawberry = new MilkTea.Builder("草莓味")
                     .size("大杯")
                     .pearl(false)
@@ -136,3 +136,33 @@
             show(strawberry);
         }
     ```
+
+5. 代理模式与动态代理
+
+   ```java
+   public class HttpProxy implements InvocationHandler {
+       private HttpUtil httpUtil;
+       public IHttp getInstance(HttpUtil httpUtil) {
+           this.httpUtil = httpUtil;
+           return (IHttp) Proxy.newProxyInstance(httpUtil.getClass().getClassLoader(), httpUtil.getClass().getInterfaces(), this);
+       }
+       // 调用 httpUtil 的任意方法时，都要通过这个方法调用
+       @Override
+       public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+           Object result = null;
+           if (method.getName().equals("request")) {
+               // 如果方法名是 request，打印日志，并调用 request 方法
+               System.out.println("发送数据:" + args[0]);
+               result = method.invoke(httpUtil, args);
+           } else if (method.getName().equals("onSuccess")) {
+               // 如果方法名是 onSuccess，打印日志，并调用 onSuccess 方法
+               System.out.println("收到数据:" + args[0]);
+               result = method.invoke(httpUtil, args);
+           }
+           return result;
+       }
+   }
+   
+   ```
+
+   

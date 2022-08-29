@@ -128,3 +128,7 @@
 22. file
 
     1. `file main.c` to tell the format of a file
+
+23. tr
+
+    1. `tr c1 c2 < ./sth.md` change character 
