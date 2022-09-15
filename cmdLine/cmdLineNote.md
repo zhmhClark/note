@@ -6,11 +6,12 @@
    2. `clear` clear the terminal
    3. `man` look up the manual
    4. `touch` create a new file
-   5. `dpkg -s`list all softares installed
+   5. `dpkg -s` list all softares installed
    6. `tab` to complete
    7. `# root user  $common user`
    8. `Ctrl + D`  exit CLI
-   9. `apt list --upgradable` list upgradable things
+   9. `Ctrl + C` exit the process
+   10. `apt list --upgradable` list upgradable things
 2. cd
 
    1. `cd /` change to the bottom directory
