@@ -137,7 +137,7 @@ r = requests.get(url)
   
   import requests
   
-  hd = {"user-agent" : ""Mozilla/5.0 (Windows NT 10.0; Win64; x64) ...",	# 浏览器类型
+  hd = {"user-agent" : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ...",	# 浏览器类型
   	"cookie" : "..."}	# cookie 从浏览器工具中获取
   r = requests.get("https://item.jd.com/100008704975.html", headers = hd)
   print(r.request.headers)
