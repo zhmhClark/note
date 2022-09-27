@@ -311,19 +311,24 @@
 
 - `join()`其余线程必须等该线程结束才能执行
 
+  - `t1.run()` 中有 `t2.join()`，t1 要等 t2 执行完成才能继续执行。
+
 - `setDaemon(true)`当线程作为后台线程时，若所有线程都为后台线程，退出程序
 
   - 需要在start前设置
 
 - `synchronized`
 
-  用于给代码语句上锁，被锁住的语句在执行时不会被其他进程占用
+  用于给代码语句上锁，被锁住的语句在执行时不会被其他线程占用
 
   锁要求必须是所有线程共用的数据
 
   可以修饰函数，此时默认锁住的对象是所在对象本身
 
   如有静态函数、锁住的是类(getClass())
+
+
+* `lock()` 显式调用锁，`tryLock()`允许尝试获得锁而未获得
 
 - `yield()`当前线程让出占用
 
@@ -757,3 +762,49 @@ useMySubString(String::subString);
 
 ``````
 
+## Callable, Future
+
+```java
+public class TaskWithResult implements Callable<String> {
+    private int id;
+
+    public TaskWithResult(int id) {
+        this.id = id;
+    }
+    
+    @Override
+    public String call() {
+        return "result of Task " + id;
+    }
+}
+
+
+public class App {
+    public static void main(String[] args) {
+        ExecutorService exec = Executors.newCachedThreadPool();
+        List<Future<String>> results = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            results.add(exec.submit(new TaskWithResult(i)));	//exeService.submit(callable)
+        }
+
+        for (Future<String> f : results) {
+            try {
+                if (f.isDone()) {
+                    System.out.println(f.get()); //f.get() 会阻塞至 callable 执行完成
+                }
+                
+            } catch (Exception e) {
+                e.printStackTrace();
+                return;
+            } finally {
+                exec.shutdown();
+            }
+            
+        }
+    }
+
+}
+```
+
+ 
