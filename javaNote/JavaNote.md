@@ -807,4 +807,8 @@ public class App {
 }
 ```
 
- 
+ ## IDEA
+
+* 断点可以右键加条件
+* 调试过程中可以用Evaluate 插入语句
+

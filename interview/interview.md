@@ -1,31 +1,67 @@
-- 姓名，院校，专业，年级
+# 面试题
 
-- 成绩，三奖
+## Java 相关
 
-- **线程中wait和sleep的区别？**
+### ArrayList 扩容
 
-  wait方法即释放cpu，又释放锁。
+* ArrayList 无参构造 容量为0
+* 添加一个元素扩容到10，之后每次扩容为1.5倍（右移一位再相加），或实际大小
 
-  sleep方法只释放cpu，但是不释放锁。
+### ArrayList FailFast FailSafe
 
- 两个Activity之间跳转时必然会执行的是哪几个方法。
+* ArrayList 是 FailFast 的。在遍历过程中如果改动列表会抛出 ConCurrentmodifyException， CoW 不会。
+* CoW 读写分离，FailSafe，但是牺牲了一致性。
 
-答: 两个Activity之间跳转必然会执行的是下面几个方法。
+### HashMap
 
-onCreate()//在Activity生命周期开始时调用。
+* 扩容规则：超过3/4 
+  * 扩容有利于减少哈希冲突
+* 链表树化：
+  * 阈值为8
+  * 树化本身是非正常情况，因此在冲突较少时使用链表
+* 存在二次哈希，让哈希分布更均匀
+* 默认容量取2的幂，扩容方便
+* HashMap key 可以为null
+  * key 必须重写 `hashCode()`和 `equals()`， 且 不可改变
 
-onRestoreInstanceState()//用来恢复UI状态。
+### 设计模式
 
-onRestart()//当Activity重新启动时调用。
+#### 单例模式
 
-onStart()//当Activity对用户即将可见时调用。
+* 饿汉式：静态成员变量
+  * 可能被反射破坏，可以在私有构造方法中判空预防；可能被反序列化破坏，重写`readResolve()` 预防
+* 饿汉式：枚举
+* 懒汉式：DCL + Volatile
+* 懒汉式：静态内部类
 
-onResume()//当Activity与用户交互时，绘制界面。
+### 并发
 
-onSaveInstanceState()//即将移出栈顶保留UI状态时调用。
+#### Java 线程状态
 
-onPause()//暂停当前活动Activity，提交持久数据的改变，停止动画或其他占用GPU资源的东西，由于下一个Activity在这个方法返回之前不会resume，所以这个方法的代码执行要快。
+* Java 内部将线程状态分为6种，与操作系统的5种略有差异。
 
-onStop()//Activity不再可见时调用。
+* NEW 作为对象被创建，只是对象，尚未关联到具体线程 （`start()` 之前）
+* RUNNABLE 
+* BLOCKED 阻塞 获得锁失败会阻塞，获得锁会就绪
+* WAITING `wait()` 与 `notify()`
+* TIMED WAITING `wait(long) sleep()` 时间到或`notify()`
+* TERMINATED 代码执行完毕
 
-onDestroy()//Activity销毁栈时被调用的最后一个方法。
+#### 线程池参数
+
+* 核心线程数：指保留在线程池的线程 的数量
+* 最大线程数目：总线程数目
+* 任务队列
+  * submit 后，分配给核心线程， 如果都忙，就加入队列，如果队列已满，就分配给救急线程
+* 生存时间与时间单位
+  * 非核心线程在无任务后的生存时间
+* 拒绝策略：在所有容器都满后做什么
+  * AbortPolicy() 抛异常
+  * CallerRunsPolicy() 调用者线程执行
+  * DiscardPolicy() 丢弃，不抛异常
+  * DiscardEldestPolicy() 加入队列，把队首任务移出
+
+
+
+
+
