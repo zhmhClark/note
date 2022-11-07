@@ -4,6 +4,7 @@
 
 1. jdk目录：`bin`可执行；`lib`Java类库文件；`include`本地方法
 2. Java编译流程(见图 `javaCompile.png`)
+3. javadoc 命令可以用来生成真的 java doc
 
 ## basic grammer
 
@@ -812,3 +813,49 @@ public class App {
 * 断点可以右键加条件
 * 调试过程中可以用Evaluate 插入语句
 
+## 注解
+
+* 本质是一个接口，所以可以定义和接口一样的属性
+
+* 成员方法要求返回值为基本类型/枚举/注解/字符串/相应数组。不可为 void
+
+* 使用的时候需要赋值，可以有 default。 
+
+* 如果只有一个属性，且名称是`value`，可以省略，直接定义值
+
+* 如果数组中只有一个值，大括号可以省略
+
+  ```java
+  public @interface HelperAnno {
+      int value();
+  }
+  
+  public enum Condition {
+      BEFORE, AFTER
+  }
+  
+  public @interface MyAnnotation {
+      int id();
+      Condition condition();
+      HelperAnno helper();
+      String[] strs1();
+      String[] strs2();
+  }
+  
+  @MyAnnotation(id = 114, condition = Condition.BEFORE, helper = @HelperAnno(514), strs1 = "a", strs2 = {"a", "b"})
+  public class AnnoDemo {
+  }
+  ```
+
+* 常见元注解
+
+  * `@Target` ：描述注解能够作用的位置
+    * ElementType
+      * TYPE 可以作用于类上
+      * METHOD, FIELD
+  * `@Retention`: 描述注解保留的阶段
+    * SOURCE，CLASS，RUNTIME
+  * `@Documented` 是否加入文档
+  * `@Inherited` 是否被子类继承
+
+* 可以通过反射(`getAnnotation()`)，获取类的注解对象，这是注解在 JVM 的具体原理
